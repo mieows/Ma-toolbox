@@ -57,7 +57,7 @@ def fetchSome(url, *args):
 		if tag.name.lower() in args:
 			tag.extract()
 	
-	if "comment" or "Comment" or "comments" or "Comments" or "COMMENT" or "COMMENTS" in args
+	if "comment" or "Comment" or "comments" or "Comments" or "COMMENT" or "COMMENTS" in args:
 		# remove comments
 		comments = soup.findAll(text=lambda text:isinstance(text, Comment))
 		[comment.extract() for comment in comments]
