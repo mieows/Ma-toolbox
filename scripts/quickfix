@@ -1,0 +1,13 @@
+#!/bin/bash
+// Find and chmod all directories
+find . -type d -exec chmod 711 '{}' \;
+
+// Find and chmod all file
+find . -type f -exec chmod 644 '{}' \;
+
+// Now just need to chmod other file types. Added in the basic ones here.
+find . -name '*.cgi' -exec chmod 700 '{}' \;
+find . -name '*.php' -exec chmod 700 '{}' \;
+
+// Should take account for files that should not be readable like wordpress
+// conf file etc

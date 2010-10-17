@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ "$1" != "" ]; then
+	PIDVAR=`lsof -i :8080 | cut -d\  -f3`
+	if [ "$PIDVAR" != "" ]; then
+		kill -9 $PIDVAR
+		echo -n "PID cleared " $PIDVAR
+	else
+		echo "Nothing is stuck on port " $1 
+	fi
+else
+                echo "Need to provide the port number to be deported! "
+fi
+
