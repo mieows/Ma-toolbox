@@ -1,0 +1,4 @@
+2010
+python-codes/
+	helper.py	some of my "make my life easier methods" for python
+	BeautifulSoup/	Not mine, just useful to have when copying my helper.py as it calls this 
