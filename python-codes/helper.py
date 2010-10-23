@@ -1,6 +1,6 @@
-import os.path, urllib
-from python-codes.BeautifulSoup.BeautifulSoup import BeautifulSoup
-from python-codes.BeautifulSoup.BeautifulSoup import Comment
+import os.path, urllib, re
+from online.BeautifulSoup.BeautifulSoup import BeautifulSoup
+from online.BeautifulSoup.BeautifulSoup import Comment
 
 # gets url and turn into soup object
 def fetch(url):
@@ -11,7 +11,7 @@ def fetch(url):
 		exit()
 
 	# given url get the source
-	page_content = datasource.read()
+	page_content = removeWhiteSpace(datasource.read())
 	soup = BeautifulSoup(''.join(page_content))
 	
 	return soup
@@ -25,7 +25,7 @@ def fetchClean(url):
 		exit()
 
 	# given url get the source
-	page_content = datasource.read()
+	page_content = removeWhiteSpace(datasource.read())
 	soup = BeautifulSoup(''.join(page_content))
 		
 	# remove comments
@@ -49,7 +49,7 @@ def fetchSome(url, *args):
 		exit()
 
 	# given url get the source
-	page_content = datasource.read()
+	page_content = removeWhiteSpace(datasource.read())
 	soup = BeautifulSoup(''.join(page_content))
 	
 	# remove unwanted tags
@@ -63,3 +63,15 @@ def fetchSome(url, *args):
 		[comment.extract() for comment in comments]
 
 	return soup
+	
+def removeWhiteSpace(datasource):	
+	pat = re.compile('(^[\s]+)|([\s]+$)', re.MULTILINE)
+	# remove leading and trailing whitespaces
+	datasource = re.sub(pat, '', datasource)   
+	# convert newlines to spaces    
+	datasource = re.sub('\n', ' ', datasource)
+	# remove whitespaces before opening tags
+	datasource = re.sub('[\s]+<', '<', datasource)
+	# remove whitespaces after closing tags
+	datasource = re.sub('>[\s]+', '>', datasource)
+	return datasource
